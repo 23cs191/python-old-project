@@ -1,0 +1,73 @@
+Skip to content
+Commands
+Search
+Recent
+All
+import tkinter as tk
+from tkinter import simpledialog, messagebox, filedialog
+import schedule
+import time
+import threading
+from datetime import datetime
+import json
+import os
+
+class TaskScheduler:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Task Scheduler")
+
+        self.tasks = []
+
+        # Task List
+        self.task_listbox = tk.Listbox(root, width=70)
+        self.task_listbox.pack(padx=10, pady=10)
+
+        # Add Task Button
+        self.add_button = tk.Button(root, text="Add Task", command=self.add_task, bg="red")
+        self.add_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Edit Task Button
+        self.edit_button = tk.Button(root, text="Edit Task", command=self.edit_task, bg="orange")
+        self.edit_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Delete Task Button
+        self.delete_button = tk.Button(root, text="Delete Task", command=self.delete_task, bg="lightcoral")
+        self.delete_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Save Tasks Button
+        self.save_button = tk.Button(root, text="Save Tasks", command=self.save_tasks, bg="lightblue")
+        self.save_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Load Tasks Button
+        self.load_button = tk.Button(root, text="Load Tasks", command=self.load_tasks, bg="lightgreen")
+        self.load_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Exit Button
+        self.exit_button = tk.Button(root, text="Exit", command=self.exit_app, bg="lightgray")
+        self.exit_button.pack(padx=10, pady=5, ipadx=10)
+
+        # Load tasks from file if it exists
+        self.load_tasks_from_file()
+
+        # Automatically start the scheduler
+        self.start_scheduler()
+
+    def add_task(self):
+        task_name = simpledialog.askstring("Add Task", "Enter task name:")
+        task_time = simpledialog.askstring("Add Task", "Enter task time (HH:MM):")
+        task_description = simpledialog.askstring("Add Task", "Enter task description:")
+        task_priority = simpledialog.askstring("Add Task", "Enter task priority (1-5):")
+        recurrence = simpledialog.askstring("Add Task", "Enter recurrence (daily, weekly, none):")
+
+        # Add task to listbox
+        if task_name and task_time:
+            try:
+                datetime.strptime(task_time, "%H:%M")  # Validate time format
+                task_priority = int(task_priority)
+                if task_priority < 1 or task_priority > 5:
+
+View your Repl's desktop screen output
+No VNC server is currently running with compatible ports available to view. Try running your Repl, and check the 
+ to ensure ports are being forwarded correctly.
+Replit
